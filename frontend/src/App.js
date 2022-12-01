@@ -97,7 +97,7 @@ export default function App() {
     }
 
     useEffect(() => {
-        
+
         document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
         const str = location.pathname;
         var some = str.split('/');
@@ -173,9 +173,9 @@ export default function App() {
                     <div style={{ display: 'flex', width: '192px', flexDirection: 'row', alignItems: 'flex-end' }}>
 
                         <button style={{ padding: '0px', marginTop: '22px', backgroundColor: '#428CFB', color: '#FFFFFF', border: 'none', width: '48px', height: '48px', borderRadius: '8px', marginRight: '16px' }} onClick={togglePopup}>
-                      {/* Sort By */}
+                            {/* Sort By */}
                         </button>
-                                  {/* <DropdownMenu style={{ marginTop: '8px',}} setsortDrawerTab={setsortDrawerTab}/> */}
+                        {/* <DropdownMenu style={{ marginTop: '8px',}} setsortDrawerTab={setsortDrawerTab}/> */}
 
 
                         {!isprofile ? <Link to="profile">

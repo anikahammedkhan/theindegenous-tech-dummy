@@ -24,9 +24,9 @@ function Discover() {
           HERE
         </button>
       </div>
-      {suggestions.map((book,index) => {
+      {suggestions.map((book, index) => {
         return (<div key={index} style={{ marginTop: '42px', width: '973px', height: '462px' }}>
-          <BookDescription3 book={book}/>
+          <BookDescription3 book={book} />
         </div>)
 
       })}

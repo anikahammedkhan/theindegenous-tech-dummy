@@ -1,19 +1,19 @@
-import React, { useState,useEffect ,useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { UserContext } from '../context/AuthContext';
 function Bookmark() {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null)
     const [book, setBook] = useState(null)
-    const [locationn,setLocation] = useState(null);
-    const [bookmarkclicked, setbookmarkclicked]= useState(false);
-    const [bookmarkarray, setbookmarkarray]= useState([]);
-    const {user, setUser, readingbook, setReadingbook}= useContext(UserContext);
-    let url=null;
-    if(readingbook){
-        url= readingbook.description;
+    const [locationn, setLocation] = useState(null);
+    const [bookmarkclicked, setbookmarkclicked] = useState(false);
+    const [bookmarkarray, setbookmarkarray] = useState([]);
+    const { user, setUser, readingbook, setReadingbook } = useContext(UserContext);
+    let url = null;
+    if (readingbook) {
+        url = readingbook.description;
     }
-    
-     // This is a hook that runs as soon as the page renders and a url string is recieved to the component as props
+
+    // This is a hook that runs as soon as the page renders and a url string is recieved to the component as props
     //upon recieving it, a state variable is loaded with the book 
     useEffect(() => {
         if (url) {
@@ -34,7 +34,7 @@ function Bookmark() {
                 height: 600,
                 spread: "always"
             });
-          
+
             rendition.display(currentSectionIndex);
             rendition.on("rendered", (section) => {
                 var current = book.navigation && book.navigation.get(section.href);
@@ -91,7 +91,7 @@ function Bookmark() {
                 this.book.destroy();
             });
 
-            
+
 
             book.loaded.navigation.then((toc) => {
                 var $select = document.getElementById("toc"),
@@ -149,26 +149,26 @@ function Bookmark() {
             })
         }
     }, [currentSectionIndex, book])
-                    
-  return (
+
+    return (
         <div >
-      {
-        !bookmarkclicked?( bookmarkarray &&
-       bookmarkarray.map((book, i)=>{
-         return (
-           <div onClick={()=>{setbookmarkclicked(!bookmarkclicked);setCurrentSectionIndex(book.start.cfi)}} key={i}>
-               {book.bookmarktitle}
-            </div>
-       )
-       
-     })):<div className="FPress">
-            <ArrowBackIcon onClick={()=>{setbookmarkclicked(!bookmarkclicked)}}/>
-            <select id="toc"></select>
-            <div id="viewer" class="spreads" oncontextmenu="return false;"></div>
-            <a id="prev" href="#prev" class="arrow">‹</a>
-            <a id="next" href="#next" class="arrow">›</a>
-        </div>}
-    </div>
+            {
+                !bookmarkclicked ? (bookmarkarray &&
+                    bookmarkarray.map((book, i) => {
+                        return (
+                            <div onClick={() => { setbookmarkclicked(!bookmarkclicked); setCurrentSectionIndex(book.start.cfi) }} key={i}>
+                                {book.bookmarktitle}
+                            </div>
+                        )
+
+                    })) : <div className="FPress">
+                    <ArrowBackIcon onClick={() => { setbookmarkclicked(!bookmarkclicked) }} />
+                    <select id="toc"></select>
+                    <div id="viewer" class="spreads" oncontextmenu="return false;"></div>
+                    <a id="prev" href="#prev" class="arrow">‹</a>
+                    <a id="next" href="#next" class="arrow">›</a>
+                </div>}
+        </div>
     );
 }
 

@@ -147,7 +147,7 @@ export default function App() {
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 
                     <div style={{ display: 'flex', width: 'auto', display: 'flex', alignItems: 'flex-end' }}>
-                        <button style={{cursor:'pointer', padding: '12px 24px 12px 24px', marginTop: '16px', backgroundColor: '#428CFB', color: '#FFFFFF', border: 'none', width: '272px', height: '48px', gap: '8px', borderRadius: '8px', marginRight: '16px', fontFamily: 'Work Sans', fontSize: '16px', fontWeight: '700', lineHeight: '19px', letterSpacing: '0.04em', color: '#FFFFFF', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }} onClick={togglePopup}>
+                        <button style={{ cursor: 'pointer', padding: '12px 24px 12px 24px', marginTop: '16px', backgroundColor: '#428CFB', color: '#FFFFFF', border: 'none', width: '272px', height: '48px', gap: '8px', borderRadius: '8px', marginRight: '16px', fontFamily: 'Work Sans', fontSize: '16px', fontWeight: '700', lineHeight: '19px', letterSpacing: '0.04em', color: '#FFFFFF', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }} onClick={togglePopup}>
                             Start reading for free
                         </button>
                     </div>

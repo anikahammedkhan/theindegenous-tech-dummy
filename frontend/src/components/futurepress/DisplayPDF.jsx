@@ -15,13 +15,11 @@ import Cover_pdf from '../LoginPage/Cover_pdf'
 
 
 function DisplayPDF() {
-    
-
 
     return (
         <div id="full-screen">
-         <h1>hi</h1>
-         <Cover_pdf/>
+            <h1>hi</h1>
+            <Cover_pdf />
 
         </div>
     );

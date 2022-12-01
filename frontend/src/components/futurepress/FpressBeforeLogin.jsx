@@ -8,18 +8,18 @@ import { UserContext } from '../context/AuthContext';
 function FpressBeforeLogin() {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null)
     const [book, setBook] = useState(null)
-    const [locationn,setLocation] = useState(null);
-    const [show,setShow]=useState(true)
-    const [bookmarked,setbookmarked] = useState(false)
-    let {readingbook, setReadingbook}= useContext(UserContext)
-    const [bookmarkarray, setbookmarkarray]= useState([])
-    let navigate= useNavigate();
-    let path="/login"
-    var urlbookmarkmap= new Map()
-    let pagescount=0;
+    const [locationn, setLocation] = useState(null);
+    const [show, setShow] = useState(true)
+    const [bookmarked, setbookmarked] = useState(false)
+    let { readingbook, setReadingbook } = useContext(UserContext)
+    const [bookmarkarray, setBookmarkarray] = useState([])
+    let navigate = useNavigate();
+    let path = "/login"
+    var urlbookmarkmap = new Map()
+    let pagescount = 0;
     let url;
-    if(readingbook.url){
-        url=readingbook.url;
+    if (readingbook.url) {
+        url = readingbook.url;
     }
     // This is a hook that runs as soon as the page renders and a url string is recieved to the component as props
     //upon recieving it, a state variable is loaded with the book 
@@ -30,13 +30,13 @@ function FpressBeforeLogin() {
             setCurrentSectionIndex(c)
             var b = window.ePub(url);
             setBook(b)
-            // if(urlbookmarkmap[url]!==undefined){
-            //     setBookmarkarray(urlbookmarkmap[url]);
-            // }
-            // else{
-            //     setBookmarkarray([]);
-            // }
-            // setLoc([]);
+            if (urlbookmarkmap[url] !== undefined) {
+                setBookmarkarray(urlbookmarkmap[url]);
+            }
+            else {
+                setBookmarkarray([]);
+            }
+            setLocation([]);
         }
     }, [url])
 
@@ -47,25 +47,25 @@ function FpressBeforeLogin() {
             var rendition = book.renderTo("viewer", {
                 width: 461,
                 height: 500,
-                spread: "always"               
-                
+                spread: "always"
+
             });
             rendition.display(currentSectionIndex);
             rendition.on("rendered", (section) => {
-                
 
-                
 
-            });   
+
+
+            });
             rendition.on("relocated", (location) => {
                 pagescount++;
-                if(pagescount>5){
-                    pagescount=0;
+                if (pagescount > 5) {
+                    pagescount = 0;
                     navigate(path);
                 }
                 setLocation(location);
                 setShow(true);
-                
+
 
             });
             rendition.on("layout", (layout) => {
@@ -82,9 +82,9 @@ function FpressBeforeLogin() {
                 this.book.destroy();
             });
 
-           
+
             book.ready.then(() => {
-                
+
 
                 var keyListener = (e) => {
 
@@ -107,61 +107,61 @@ function FpressBeforeLogin() {
         }
     }, [currentSectionIndex, book])
     const isFound = bookmarkarray && bookmarkarray.some(element => {
-            if (locationn && element.start.cfi === locationn.start.cfi) {
-                return true;
-            }
+        if (locationn && element.start.cfi === locationn.start.cfi) {
+            return true;
+        }
 
-            return false;
-        });
+        return false;
+    });
     const handleSubmit = (e) => {
-    
+
         e.preventDefault();
         setShow(!show);
-        var bmtitle= document.getElementById('bm').value;
-        if(isFound===false){
+        var bmtitle = document.getElementById('bm').value;
+        if (isFound === false) {
             const tempMyObj = Object.assign({}, locationn);
-            tempMyObj.bookmarktitle=bmtitle;
+            tempMyObj.bookmarktitle = bmtitle;
             bookmarkarray.push(tempMyObj);
-             
-        } 
-        urlbookmarkmap[url]=bookmarkarray;
+
+        }
+        urlbookmarkmap[url] = bookmarkarray;
     }
 
-        function Form() {
-          return (
-            <form onSubmit = {handleSubmit}>
-            <input id="bm" placeholder='Bookmark Title'></input>
-            <button type = 'submit'>Add Bookmark</button>
+    function Form() {
+        return (
+            <form onSubmit={handleSubmit}>
+                <input id="bm" placeholder='Bookmark Title'></input>
+                <button type='submit'>Add Bookmark</button>
             </form>
-          )
-        }
+        )
+    }
 
-        const RemoveBookmark=()=>{
-            setbookmarked(!bookmarked);
-            var index = bookmarkarray.findIndex(function(o){
-                return o.start.cfi === locationn.start.cfi;
-            })
-            if (index !== -1) {
-                bookmarkarray=bookmarkarray.splice(index, 1);
-            }
-            urlbookmarkmap[url]=bookmarkarray;
+    const RemoveBookmark = () => {
+        setbookmarked(!bookmarked);
+        var index = bookmarkarray.findIndex(function (o) {
+            return o.start.cfi === locationn.start.cfi;
+        })
+        if (index !== -1) {
+            bookmarkarray = bookmarkarray.splice(index, 1);
         }
-        
-        function BookMark() {
-          return (
-            <div>{isFound?<BookmarkIcon onClick={RemoveBookmark}/>:<BookmarkBorderIcon onClick={()=>setShow(!show)}/>}</div>
-          )
-        }
-        
+        urlbookmarkmap[url] = bookmarkarray;
+    }
+
+    function BookMark() {
+        return (
+            <div>{isFound ? <BookmarkIcon onClick={RemoveBookmark} /> : <BookmarkBorderIcon onClick={() => setShow(!show)} />}</div>
+        )
+    }
+
 
     return (
         <div>
-        <div className="FPress">
+            <div className="FPress">
 
-            <div id="viewer" class="spreads"></div>
-          
-        </div>
-        
+                <div id="viewer" class="spreads"></div>
+
+            </div>
+
         </div>
     );
 }
